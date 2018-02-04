@@ -68,6 +68,8 @@ const y = convert(Vector{Float64}, df[:target])
 
 train, valid = split_bag(1:size(df,1), 70)
 
+base = cv_error(ConstantRegressor(),X,y,n_folds=12)
+
 ames_reg = cv_errors(TreeRegressor(regularization=0.89), X, y, n_folds=12, parallel=true, verbose=false)/base
 ames_prune = cv_errors(TreeRegressor(min_patterns_split=33), X, y, n_folds=12, parallel=true, verbose=false)/base
 
